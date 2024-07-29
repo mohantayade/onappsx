@@ -1,0 +1,6 @@
+.backgroundpl{
+    height: 100vh;
+  background: 
+    linear-gradient(to bottom, transparent 50%, white 50%), 
+    linear-gradient(100deg, #8a07ff, #f500d7);
+}
