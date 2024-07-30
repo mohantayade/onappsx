@@ -12,7 +12,7 @@ function PopularApp() {
 
   useEffect(() => {
     setLoading(true) 
-    setTimeout(()=>{searchfun()},1000) 
+    searchfun()
   },[]);
 
  const searchfun = ()=>{
