@@ -1,39 +1,30 @@
 "use client"
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import logol from '@/assets/loadinglogo.svg'
 import Image from 'next/image';
+import {useQuery} from 'react-query';
+
+
 
 function PopularApp() {
 
-    const [apps,setApps]=useState([])
-    const [loading,setLoading]=useState(false)
- 
 
-  useEffect(() => {
-    setLoading(true) 
-    searchfun()
-  },[]);
-
- const searchfun = ()=>{
-  
-         axios.get("/api/apps").then((responce) => {
-            setApps(responce.data.apps)
-            setLoading(false)
-        }).catch((error) => {
-          console.log(error.response.statusText);
-          setLoading(false)
-        });
-        setApps([])  
+    const fetchApps = async () => {
+      const response = await axios.get("/api/apps");
+      return response.data.apps;
     }
+    const { data: apps = [], isLoading } = useQuery("apps", fetchApps);
+
 
     
 
   return (
+   
     <div className='mb-10 max-w-[1400px] mx-auto'>
         <h1 className="text-2xl pl-3 my-5 font-bold text-blue-500 ">Popular Apps</h1>
         {
-          loading?<div className='flex justify-center '><Image priority alt='logo' className='' width={300} height={300} src={logol} style={{ width: "auto", height: "auto" }}/></div>:
+          isLoading?<div className='flex justify-center '><Image priority alt='logo' className='' width={300} height={300} src={logol} style={{ width: "auto", height: "auto" }}/></div>:
         
       <div className=' mx-auto max-w-[1400px] grid sm:grid-cols-2 md:grid-cols-3'>
         
@@ -61,6 +52,7 @@ function PopularApp() {
         }
       </div>}
     </div>
+    
   )
 }
 

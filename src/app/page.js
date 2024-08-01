@@ -1,6 +1,8 @@
+"use client"
 import PopularApp from '@/components/PopularApp';
 import Search from '@/components/Search';
 import '@/styles/home.css'
+
 
 
 export default function Home() {
@@ -12,8 +14,9 @@ export default function Home() {
       <Search/>
       </div>
       
+      
+      <PopularApp/>
     
-    <PopularApp/>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 "use client"
 import axios from "axios"
+import Image from "next/image";
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
+import tubeLoading from '@/assets/tube-spinner.svg'
 
 function page() {
     const router = useRouter()
@@ -11,7 +13,7 @@ function page() {
     const [eye, setEye] = useState("password");
     const [eyeBtn, setEyebtn] = useState("Show");
     const [err, setErr] = useState("");
-   
+    const [userLoading,setUserLoading] = useState(false)
 
     const passView = () => {
         if (eye == "password") {
@@ -32,7 +34,9 @@ function page() {
     })
 
     const handleSubmit = async () => {
+        
         const data = { email, password };
+        setUserLoading(true)
         if (data) {
             await axios.post('/api/user/login', data)
                 .then(function (response) {
@@ -44,10 +48,13 @@ function page() {
 
 
                     router.push("/user")
+                    setUserLoading(false)
                 })
                 .catch(function (error) {
+                    
                     setErr(error.response.data.message)
                     console.log(error.response ? error.response.data.message : error.message);
+                    setUserLoading(false)
                 });
         }
         
@@ -72,7 +79,7 @@ function page() {
                             <button onClick={passView} className="bg-blue-500 py-3  text-white font-bold rounded-lg w-20">{eyeBtn}</button>
                         </div>
                         <p className="text-red-700">{err}</p>
-                        <button onClick={handleSubmit} className="bg-blue-500 py-3 text-white font-bold rounded-lg">Log In</button>
+                        {userLoading?<button className=" py-3 text-black font-bold rounded-lg flex justify-center"><Image src={tubeLoading} width={30} height={30}/></button>:<button onClick={handleSubmit} className="bg-blue-500 py-3 text-white font-bold rounded-lg">Log In</button>}
                     </div>
 
                     <div className="text-center">

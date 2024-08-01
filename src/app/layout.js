@@ -3,8 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import UserContextProvider from "@/context/userContexProvider";
-
-
+import ReactQueryProvider from "@/utils/ReactQueryProvider";
 const roboto = Poppins({ weight: '300',subsets: ["latin"] });
 
 export const metadata = {
@@ -18,8 +17,10 @@ export default function RootLayout({ children }) {
     
       <body suppressHydrationWarning={true} className={roboto.className}>
         <UserContextProvider>
+        <ReactQueryProvider>
          <Navbar/>
         {children}
+        </ReactQueryProvider>
         </UserContextProvider>
         </body>
     </html>
