@@ -21,7 +21,6 @@ function User() {
   const { setUser } = useContext(LoginContext)
   const [count,setCount]=useState(1)
   const handleReload=()=>{
-    setAppLoading(true)
     setCount(count+1)
    
   }
