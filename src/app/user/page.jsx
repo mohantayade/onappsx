@@ -55,7 +55,7 @@ function User() {
       .then((responce)=>{setAppResponce(responce.data.message)
         setTimeout(() => {
           setAppResponce("")
-        }, 1500);
+        }, 1000);
       })
       .catch((error)=>{setAppResponce(error.response.data.message)})
 
@@ -76,7 +76,7 @@ function User() {
         setAppLoading(false)
       })
 
-  },[deleteRes,count])
+  },[submitApp,deleteApp,count])
 
 
   
@@ -131,7 +131,10 @@ function User() {
      })
        .then((responce)=>{
         setDeleteRes(responce.data.message)
-       
+        
+        setTimeout(() => {
+          setDeleteRes("")
+        }, 1000);
       })
        .catch((error)=>{console.log(error.response.data.message)})
     }
