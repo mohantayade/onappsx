@@ -66,8 +66,16 @@ function Navbar() {
       name: "Profile"
     },
     {
-      link: "/login",
-      name: "Log In"
+      link: "/all-apps",
+      name: "All Apps"
+    },
+    {
+      link: "/about",
+      name: "About"
+    },
+    {
+      link: "/contact",
+      name: "Contact"
     }
   ];
 
@@ -102,7 +110,7 @@ function Navbar() {
           </div> 
          </div>
          :
-         <><Link href='/login' className="hidden md:block font-semibold">Log In</Link>
+         <><Link href='/login' className="hidden  md:block font-semibold ">Log In</Link>
 <Link className="hidden md:block bg-blue-500 font-semibold text-white px-4 py-2 rounded-lg" href='/signup'>Sign Up</Link></>
      }
 

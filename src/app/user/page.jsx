@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import LoginContext from '@/context/loginContext'
 import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image'
+import ModelDeleteBTN from '@/components/ModelDeleteBTN'
+import ModelAppUpdate from '@/components/ModelAppUpdateBTN'
 
 
 
@@ -104,7 +106,6 @@ function User() {
     router.push("/")
   }
 
-
   // delete apps
 
   const deleteApp = async(id)=>{
@@ -177,7 +178,7 @@ function User() {
         </div>
 
 
-        {/* Your apps sections */}
+   {/* Your apps sections */}
         <div>
         <div className=' grid grid-rows-1  max-w-[1000px] mx-auto mb-10 rounded-lg shadow-lg bg-white h-auto'>
         <label className='text-xl text-blue-400 font-bold m-5'>Your Apps</label>
@@ -198,32 +199,18 @@ function User() {
                   </div> 
           </div>
           <div className='flex justify-between gap-3 mt-3 md:mt-0'>
-          <button 
-          onClick={() => deleteApp(data._id)} 
-          className='bg-red-500 text-white  font-semibold  hover:bg-red-800 rounded-lg h-12  px-4 max-w-[180px] mx-2'>Delete 🚮</button>
-          <button className='bg-blue-500 text-white  font-semibold  hover:bg-blue-800 rounded-lg h-12  px-4 max-w-[160px] mx-2'> Edit ✏️</button>
+          
+          <ModelDeleteBTN modelFunction={() => deleteApp(data._id)} />
+          <ModelAppUpdate appUpdateId={data._id} />
           </div>
           
       </div>
         })
       }
+      
 
 
-            {/* <div className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full '>          
-                              <div className='flex items-center gap-5'>
-                              <div className='w-14 h-14 bg-gray-200 rounded-md'> 
-                              </div>
-                                      <div>
-                                      <h2 className='text-lg font-semibold text-wrap'>your app name</h2>
-                                      <p className='text-sm text-wrap'>title Database Management Tool</p>
-                                      </div> 
-                              </div>
-                              <div className='flex justify-between gap-3 mt-3 md:mt-0'>
-                              <button className='bg-red-500 text-white  font-semibold  hover:bg-red-800 rounded-lg h-12  px-4 max-w-[180px] mx-2'>Delete 🚮</button>
-                              <button className='bg-blue-500 text-white  font-semibold  hover:bg-blue-800 rounded-lg h-12  px-4 max-w-[160px] mx-2'> Edit ✏️</button>
-                              </div>
-                              
-                          </div> */}
+  
                           
         </div>
       </div>

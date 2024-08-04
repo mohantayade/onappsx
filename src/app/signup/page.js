@@ -89,7 +89,9 @@ function page() {
               <Link className="" href="/login">Already have an account? <span className="text-blue-500">LogIn</span></Link>
             </div>
           </div >
-          <div className="relative flex items-center mx-5 mb-5">
+
+
+          {/* <div className="relative flex items-center mx-5 mb-5">
             <div className="flex-grow border-t border-gray-400"></div>
             <span className="flex-shrink mx-4 text-gray-400">or</span>
             <div className="flex-grow border-t border-gray-400"></div>
@@ -102,7 +104,7 @@ function page() {
               <div className="text-center w-full">
                 <span className="mx-10 font-bold text-gray-600 text-sm">LogIn With Google</span>
               </div></Link>
-          </div>
+          </div> */}
 
 
 

@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
         <ReactQueryProvider>
          <Navbar/>
         {children}
+        <div className="domModel"></div>
         </ReactQueryProvider>
         </UserContextProvider>
         </body>

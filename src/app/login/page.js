@@ -66,6 +66,7 @@ function page() {
 
     return (
         <div className="">
+           
             <div className="flex justify-center items-center h-full mx-1">
                 <div className="   w-[380px] my-16 rounded-lg ">
                     <h1 className="text-center text-2xl font-bold m-4">Log In</h1>
@@ -86,20 +87,20 @@ function page() {
                         <Link className="" href="/signup">Dont't have an account? <span className="text-blue-500">Signup</span></Link>
                     </div>
 
-                    <div className="relative flex items-center mx-5 mb-5">
+                    {/* <div className="relative flex items-center mx-5 mb-5">
                         <div className="flex-grow border-t border-gray-400"></div>
                         <span className="flex-shrink mx-4 text-gray-400">or</span>
                         <div className="flex-grow border-t border-gray-400"></div>
-                    </div>
+                    </div> */}
 
                     {/* log in with 0Auth login like google */}
-                    <div className="flex justify-center items-center mx-5 ">
+                    {/* <div className="flex justify-center items-center mx-5 ">
                         <Link href="/" className="px-5 py-2 border-2 rounded-lg flex items-center ">
                             <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="" width={30} />
                             <div className="text-center ">
                                 <span className="mx-10 font-bold text-sm text-gray-600">LogIn With Google</span>
                             </div></Link>
-                    </div>
+                    </div> */}
 
                     {/* ******************************************* */}
 
