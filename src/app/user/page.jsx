@@ -76,7 +76,7 @@ function User() {
         setAppLoading(false)
       })
 
-  },[setDeleteRes,count])
+  },[deleteRes,count])
 
 
   
@@ -131,7 +131,7 @@ function User() {
      })
        .then((responce)=>{
         setDeleteRes(responce.data.message)
-        
+       
       })
        .catch((error)=>{console.log(error.response.data.message)})
     }
