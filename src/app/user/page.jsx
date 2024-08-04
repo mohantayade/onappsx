@@ -55,9 +55,11 @@ function User() {
       .then((responce)=>{setAppResponce(responce.data.message)
         setTimeout(() => {
           setAppResponce("")
-        }, 1000);
+        }, 1500);
       })
-      .catch((error)=>{setAppResponce(error.response.data.message)})
+      .catch((error)=>{setAppResponce(error.response.data.message); setTimeout(() => {
+        setAppResponce("")
+      }, 1500);})
 
   }
 
