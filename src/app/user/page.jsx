@@ -198,7 +198,7 @@ function User() {
         
         <label className='text-red-500 font-bold text-xl text-center'>{deleteRes}</label>
         {
-  appLoading?<div className='px-2 py-2 flex justify-center items-center'><Image src={tubeLoading} width={100} height={100} /></div>:<div className='px-2 py-2'>
+  appLoading?<div className='px-2 py-2 flex justify-center'><Image src={tubeLoading} width={100} height={100} /></div>:<div className='px-2 py-2'>
   {
     userApps.map((data)=>{
       return <div key={data._id} className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full mb-2 '>          
