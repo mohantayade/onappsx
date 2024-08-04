@@ -76,7 +76,7 @@ function User() {
         setAppLoading(false)
       })
 
-  },[appResponce,deleteRes,count])
+  },[deleteRes,count])
 
 
   
