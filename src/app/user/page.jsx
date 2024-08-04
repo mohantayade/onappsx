@@ -119,7 +119,7 @@ function User() {
   // delete apps
 
   const deleteApp = async(id)=>{
-    setAppLoading(true)
+   
     const token = localStorage.getItem('token')
 
       const data = {appId:id}
@@ -131,9 +131,9 @@ function User() {
      })
        .then((responce)=>{
         setDeleteRes(responce.data.message)
-        setAppLoading(false)
+        
       })
-       .catch((error)=>{console.log(error.response.data.message);setAppLoading(false)})
+       .catch((error)=>{console.log(error.response.data.message)})
     }
 
 
