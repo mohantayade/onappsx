@@ -9,15 +9,18 @@ import ModelDeleteBTN from '@/components/ModelDeleteBTN'
 import ModelAppUpdate from '@/components/ModelAppUpdateBTN'
 
 
-
 function User() {
 
+ 
   // state section
   const router = useRouter()
   const [userLoading,setUserLoading] = useState(false)
   const [userData, setUserData] = useState("")
   const { setUser } = useContext(LoginContext)
-
+  const [count,setCount]=useState(1)
+  const handleReload=()=>{
+    setCount(count+1)
+  }
   // create app state
   const [name,setName]= useState("")
   const [title,setTitle]= useState("")
@@ -66,7 +69,7 @@ function User() {
         setUserApps(responce.data.apps)})
       .catch((error)=>{console.log(error.response.data.message)})
 
-  },[appResponce,deleteRes])
+  },[appResponce,deleteRes,count])
 
 
   
@@ -181,7 +184,9 @@ function User() {
    {/* Your apps sections */}
         <div>
         <div className=' grid grid-rows-1  max-w-[1000px] mx-auto mb-10 rounded-lg shadow-lg bg-white h-auto'>
-        <label className='text-xl text-blue-400 font-bold m-5'>Your Apps</label>
+        <label className='text-xl text-blue-400 font-bold m-5 flex justify-between'>Your Apps 
+          <button className="text-black text-sm" onClick={handleReload}>↻ Refresh</button></label>
+        
         
         <label className='text-red-500 font-bold text-xl text-center'>{deleteRes}</label>
           <div className='px-2 py-2'>
