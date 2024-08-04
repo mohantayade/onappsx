@@ -15,11 +15,15 @@ function User() {
   // state section
   const router = useRouter()
   const [userLoading,setUserLoading] = useState(false)
+  const [appLoading,setAppLoading] = useState(false)
+
   const [userData, setUserData] = useState("")
   const { setUser } = useContext(LoginContext)
   const [count,setCount]=useState(1)
   const handleReload=()=>{
+    setAppLoading(true)
     setCount(count+1)
+   
   }
   // create app state
   const [name,setName]= useState("")
@@ -59,6 +63,7 @@ function User() {
   }
 
   useEffect(()=>{
+    setAppLoading(true)
     const token = localStorage.getItem('token')
       
      axios.get('/api/user/userapp',{
@@ -66,8 +71,11 @@ function User() {
         token: token }
     })
       .then((responce)=>{
-        setUserApps(responce.data.apps)})
-      .catch((error)=>{console.log(error.response.data.message)})
+        setUserApps(responce.data.apps)
+        setAppLoading(false)})
+      .catch((error)=>{console.log(error.response.data.message);
+        setAppLoading(false)
+      })
 
   },[appResponce,deleteRes,count])
 
@@ -189,35 +197,38 @@ function User() {
         
         
         <label className='text-red-500 font-bold text-xl text-center'>{deleteRes}</label>
-          <div className='px-2 py-2'>
-        
-
-      {
-        userApps.map((data)=>{
-          return <div key={data._id} className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full mb-2 '>          
-          <div className='flex items-center gap-4'>
-          <div className='w-14 h-14 bg-gray-200 rounded-md'> 
-          </div>
-                  <div>
-                  <h2 className='text-lg font-semibold text-wrap'>{data.name}</h2>
-                  <p className='text-sm text-wrap'>{data.title}</p>
-                  </div> 
-          </div>
-          <div className='flex justify-between gap-3 mt-3 md:mt-0'>
-          
-          <ModelDeleteBTN modelFunction={() => deleteApp(data._id)} />
-          <ModelAppUpdate appUpdateId={data._id} />
-          </div>
-          
+        {
+  appLoading?<div className='px-2 py-2 flex justify-center items-center'><Image src={tubeLoading} width={100} height={100} /></div>:<div className='px-2 py-2'>
+  {
+    userApps.map((data)=>{
+      return <div key={data._id} className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full mb-2 '>          
+      <div className='flex items-center gap-4'>
+      <div className='w-14 h-14 bg-gray-200 rounded-md'> 
       </div>
-        })
-      }
+              <div>
+              <h2 className='text-lg font-semibold text-wrap'>{data.name}</h2>
+              <p className='text-sm text-wrap'>{data.title}</p>
+              </div> 
+      </div>
+      <div className='flex justify-between gap-3 mt-3 md:mt-0'>
       
-
-
+      <ModelDeleteBTN modelFunction={() => deleteApp(data._id)} />
+      <ModelAppUpdate appUpdateId={data._id} />
+      </div>
+      
+  </div>
+    })
+  }
   
-                          
-        </div>
+
+
+
+                      
+    </div>
+}
+          
+
+
       </div>
         </div>
 
