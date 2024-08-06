@@ -6,6 +6,8 @@ import {useQuery} from 'react-query';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import tubeLoading from '@/assets/tube-spinner.svg'
+import Image from 'next/image';
+
 function appPage() {
     const appId = usePathname()
     const fetchApps = async () => {
@@ -18,7 +20,10 @@ function appPage() {
 if (isLoading) {
     return(
         <div className=' max-w-[800px] mx-auto my-5'>
-           <Image src={tubeLoading} width={100} height={100} />
+            <div className='flex justify-center items-center w-full h-[50vh]'>
+            <Image src={tubeLoading} width={100} height={100} />
+            </div>
+          
         </div>
     )
 }
