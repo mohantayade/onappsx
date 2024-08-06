@@ -4,7 +4,7 @@ import React from 'react'
 import logol from '@/assets/loadinglogo.svg'
 import Image from 'next/image';
 import {useQuery} from 'react-query';
-
+import { useRouter } from 'next/navigation'
 
 
 function PopularApp() {
@@ -16,7 +16,10 @@ function PopularApp() {
     }
     const { data: apps = [], isLoading } = useQuery("apps", fetchApps);
 
-
+    const router = useRouter()
+    const openPage=(appid)=>{
+      router.push(`/${appid}`, { scroll: false })
+    }
     
 
   return (
@@ -31,7 +34,7 @@ function PopularApp() {
         {
             apps.map((data)=>{
                 return (
-                    <div key={data.name} className='flex justify-between p-4 m-3 border rounded-lg items-center '>
+                    <div onClick={()=>openPage(data._id)} key={data.name} className='flex justify-between p-4 m-3 border rounded-lg items-center cursor-pointer'>
                         
                         <div className='flex items-center gap-5'>
                         <div className='w-14 h-14 bg-gray-200 rounded-md'>
@@ -44,7 +47,7 @@ function PopularApp() {
                          
                         </div>
                         
-                        <button>👍{data.likes.length}</button>
+                        <button>🤍{data.likes.length}</button>
                     </div>
                 )
     

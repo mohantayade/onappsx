@@ -66,10 +66,6 @@ function Navbar() {
       name: "Profile"
     },
     {
-      link: "/all-apps",
-      name: "All Apps"
-    },
-    {
       link: "/about",
       name: "About"
     },
