@@ -10,17 +10,15 @@ import Image from 'next/image';
 
 function appPage() {
     const appId = usePathname()
-    const [loading,setLoading]=useState(false)
+    
     const fetchApps = async () => {
-        setLoading(true)
         const response = await axios.get(`/api/apps/details/${appId}`);
-        setLoading(false)
         return response.data.apps;
       }
       const { data: apps = [], isLoading } = useQuery("apps", fetchApps);
  
 
-if (isLoading || loading) {
+if (isLoading) {
     return(
         <div className=' max-w-[800px] mx-auto my-5'>
             <div className='flex justify-center items-center w-full h-[50vh]'>
