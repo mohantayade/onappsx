@@ -1,7 +1,7 @@
 "use client"
 import Comment from '@/components/Comment'
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import {useQuery} from 'react-query';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
@@ -10,14 +10,17 @@ import Image from 'next/image';
 
 function appPage() {
     const appId = usePathname()
+    const [loading,setLoading]=useState(false)
     const fetchApps = async () => {
+        setLoading(true)
         const response = await axios.get(`/api/apps/details/${appId}`);
+        setLoading(false)
         return response.data.apps;
       }
       const { data: apps = [], isLoading } = useQuery("apps", fetchApps);
  
 
-if (isLoading) {
+if (isLoading || loading) {
     return(
         <div className=' max-w-[800px] mx-auto my-5'>
             <div className='flex justify-center items-center w-full h-[50vh]'>
@@ -30,7 +33,9 @@ if (isLoading) {
 
   return (
     <div>
+
         
+
         <div className=' max-w-[800px] mx-auto my-5'>
             <div className='mx-5  md:flex md: md:justify-center md:flex-nowrap grid grid-cols-2  items-center gap-2'>
                 <div className='w-16 h-16 rounded-lg bg-black flex-shrink-0 order-1 md:order-1'>logo</div>
