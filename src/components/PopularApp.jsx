@@ -47,7 +47,7 @@ function PopularApp() {
                          
                         </div>
                         
-                        <button>🤍{data.likes.length}</button>
+                        <button>❤️{data.likes.length}</button>
                     </div>
                 )
     

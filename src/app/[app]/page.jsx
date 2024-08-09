@@ -1,28 +1,40 @@
 "use client"
 import Comment from '@/components/Comment'
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {useQuery} from 'react-query';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image';
+import LikeComponent from '@/components/LikeComponent';
 
 function appPage() {
     const appId = usePathname()
-    
+    // const queryClient = useQueryClient(); 
+
     const fetchApps = async () => {
         const response = await axios.get(`/api/apps/details/${appId}`);
         return response.data.apps;
       }
-      const { data: apps = [], isLoading } = useQuery("apps", fetchApps);
- 
+      const { data: apps = [], isLoading ,refetch } = useQuery("apps", fetchApps);
+
+
+      const [likeFetch, setlikeFetch] = useState(false);
+      const handlelikeFetchChange = () => {
+        setlikeFetch(!likeFetch);
+      };
+
+      useEffect(() => {
+        // Refetch apps data when the message state changes
+        refetch();
+      }, [likeFetch, refetch]);
 
 if (isLoading) {
     return(
         <div className=' max-w-[800px] mx-auto my-5'>
             <div className='flex justify-center items-center w-full h-[50vh]'>
-            <Image src={tubeLoading} width={100} height={100} />
+            <Image alt='loading' src={tubeLoading} width={100} height={100} priority />
             </div>
           
         </div>
@@ -46,7 +58,7 @@ if (isLoading) {
                 <div className='self-center shrink order-2 md:order-3 flex place-content-end  items-center gap-1 '>
                     
                 <Link href={apps[0]?.link} target="_blank" className=' px-5 py-3 rounded-xl bg-blue-500 text-white text-center font-semibold '>Open</Link>
-                <button className=' px-5 py-2 rounded-xl font-semibold border-2 border-blue-500  text-2xl'>🤍</button>
+                <LikeComponent id={appId} onFetchChange={handlelikeFetchChange}/>
                 </div>
             </div>
             <hr className='mt-2' />
