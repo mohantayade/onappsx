@@ -62,12 +62,14 @@ function LikeComponent({ id, onFetchChange }) {
 
 
   const likefn = () => {
-    setApplike(!applikeornot)
+    
     const token = localStorage.getItem('token')
     if (token) {
       if (applikeornot) {
+        setApplike(!applikeornot)
         appUnlike()
       } else {
+        setApplike(!applikeornot)
         appLike()
       }
 
