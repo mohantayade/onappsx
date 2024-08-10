@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 function LikeComponent({ id, onFetchChange }) {
   const [like, setLike] = useState(false)
   const [applikeornot, setApplike] = useState(false)
+ 
+
 
 
   const appLike = async () => {
@@ -60,6 +62,7 @@ function LikeComponent({ id, onFetchChange }) {
 
 
   const likefn = () => {
+    setApplike(!applikeornot)
     const token = localStorage.getItem('token')
     if (token) {
       if (applikeornot) {
@@ -76,13 +79,14 @@ function LikeComponent({ id, onFetchChange }) {
 
   useEffect(() => {
     fetchApps()
-  }, [likefn])
+  }, [like])
 
   
 
 
   return (
     <div>
+    
       <button onClick={likefn} className=' px-5 py-2 rounded-xl font-semibold border-2 border-blue-500  text-2xl'>{applikeornot ? "❤️" : "🤍"}</button>
     </div>
   )
