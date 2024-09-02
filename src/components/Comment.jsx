@@ -2,6 +2,8 @@
 import React, { useEffect,useState } from 'react'
 import axios from 'axios';
 import {useQuery} from 'react-query';
+import tubeLoading from '@/assets/tube-spinner.svg'
+import Image from 'next/image';
 
 function Comment({appId}) {
 
@@ -36,6 +38,8 @@ function Comment({appId}) {
     const response = await axios.get(`/api/apps/details${appId}/getcomm`);
     return response.data;
   }
+
+
   const { data, isLoading,refetch} = useQuery("comments", fetchComments);
 
  
@@ -47,31 +51,63 @@ const datas ={
 }
   const token = localStorage.getItem('token')
   const [userlogin,setUserlogin]=useState(true)
-    
+
+  const [userData, setUserData] = useState()
+
     useEffect(() => {
       if (token) {
         setUserlogin(false);
+        axios.get("/api/user/profile", {
+          params: {
+            token: token }
+        }).then((responce) => {
+         
+          setUserData(responce.data.message._id)
+          // setUser(responce.data.message)
+          
+         
+        }).catch((error) => {
+          console.log(error.response.statusText);
+        })
       }
     }, [token]);
-
   
+// console.log(userData._id);
+
   const addComments = async () => {
+    if (textarea == '') {
+      alert("Plese Enter comment ⤵️")
+    }else{
     const response = await axios.post(`/api/apps/details${appId}/addcomm?token=${token}`,datas);
     console.log(response);
+    alert(response.data.message)
     refetch()
+    setTextarea('')
     return response.data;
+  }
   }
 
 
   if (isLoading) {
-    return <div>loading</div>
+    return <div><div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} /></div></div>
   }
+
+  const sortedComments = data.sort((a, b) => {
+    if (a.userId === userData && b.userId !== userData) {
+      return -1;
+    } else if (a.userId !== userData && b.userId === userData) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
   return (
     <div>
         <div className='mx-5  my-2 flex border-blue-500 border-2 p-4 rounded-lg'>
             
     <div className='w-14 h-12 mr-2 bg-pink-400 rounded-full'></div>
-    <textarea onChange={(e)=>setTextarea(e.target.value)} className='border-none outline-none py-2 w-[100%] h-[120px]' placeholder='What do you think?'></textarea>
+    <textarea value={textarea} onChange={(e)=>setTextarea(e.target.value)} className='border-none outline-none py-2 w-[100%] h-[120px]' placeholder='What do you think?'></textarea>
     
 </div>
 <div className='flex justify-end'>
@@ -84,20 +120,30 @@ const datas ={
 
 {
 
-  data.map((item)=>{
+sortedComments.map((item, i)=>{
   
     const date = new Date(item.timestamp)
     const localdate = timeAgo(date)
   
     return(
-      <div>
-    <div className='flex my-4'>
+      <div key={i}>
+    <div className='flex my-4 justify-between items-center '>
+      <div className='flex'>
       <div className='bg-gray-500 rounded-full h-[40px] w-[40px] flex-shrink-0'></div>
-      <div className='ml-2'>
-      <h3 className='font-bold '>{item.name} <span className=' italic text-[12px] text-gray-600'> {localdate}</span></h3>
+      <div className='ml-2 w-full '>
+      <h3 className='font-bold flex items-center gap-1'>{item.name} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
+         <button className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>🗑️ <span className='text-[9px]'>Delete</span></button>
+        <button className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>✏️ <span className='text-[9px]'>Edit</span></button>
+        </div>:<div></div>}</div></h3>
+      
       <p className='text-sm '>{item.comment}</p>
       </div>
+      </div>
+      
+
+
     </div>
+    
     <hr />
     </div>
       
