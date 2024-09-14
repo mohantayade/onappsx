@@ -4,8 +4,14 @@ import axios from 'axios';
 import {useQuery} from 'react-query';
 import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image';
+import MyModel from './MyModel'
 
 function Comment({appId}) {
+
+  const [showModelD, setShowModelD]=useState(false)
+  const closeModelD = ()=> setShowModelD(false)
+  const [commentapiid,setCommentapiid]=useState("")
+
 
   function timeAgo(timestamp) {
     const now = new Date();
@@ -87,9 +93,109 @@ const datas ={
   }
   }
 
+  const deleteCommentApi = async (commentid) =>{
+    setShowModelD(true)
+    setCommentapiid(commentid);
+    
+  }
+  const runDeleteCommentApi =async ()=>{
+  const response = await axios.delete(`/api/apps/details${appId}/${commentapiid}/rmcomm?token=${token}`);
+  console.log(response);
+  // alert(response.data.message)
+  refetch()
+  setShowModelD(false)
+  return response.data;
+  }
+
+  const mainDeleteModel = (
+    <MyModel closeModel={closeModelD} /* mainfunction={mainfunction}*/ >
+        <div className=''>
+
+        <div className="flex  flex-col text-black w-[250px] md:w-[300px] ">
+            <p className='text-center py-3 mx-2 md:mx-10 text-xl'>Are You Sure ?</p>
+            <div className='flex gap-2 '>
+            <button onClick={runDeleteCommentApi} className='text-lg font-bold p-3  rounded-lg text-white grow bg-red-500 hover:bg-red-800' >Yes</button>
+            <button className='text-lg font-bold p-3 bg-blue-500 rounded-lg text-white grow hover:bg-blue-800' onClick={closeModelD}>NO</button>
+            </div>
+            
+            </div>
+        </div>
+    </MyModel>
+   );
+
+
+
+
+// update commnet section
+
+  const [showModel, setShowModel]=useState(false)
+  const closeModel = ()=> setShowModel(false)
+const [commentupd,setCommentupd]=useState({})
+const [updateLoading,setUpdateLoading]=useState(false)
+// const [clickupdatebtn,setClickupdatebtn]=useState(false)
+
+const [messagesApi,setMessagesApi] =useState()
+
+const inputChangeH = (e) => {
+  // const { name, value } = e.target;
+  setCommentupd(e.target.value);
+};
+
+  const updateCommentApi = (commentid) =>{
+
+    setShowModel(true)
+    setCommentapiid(commentid)
+    
+  }
+
+  const editapi = async()=>{
+    setUpdateLoading(true)
+    const response = await axios.patch(`/api/apps/details${appId}/${commentapiid}/updtcomm?token=${token}`,{"comment":commentupd});
+    setUpdateLoading(false)
+    refetch()
+    setMessagesApi(response.data.message)
+    setTimeout(() => {
+      setMessagesApi("")
+      setShowModel(false)
+    }, 3000);
+    return response.data;
+  }
+
+  const mainModel = (
+    <MyModel closeModel={closeModel} >
+        <div>
+        <div className="flex  flex-col text-black w-[250px] md:w-[300px] ">
+
+            <p className='text-center py-3 mx-2 md:mx-10 text-xl'>Edit Comment</p>
+
+            <div>
+                      
+                        <textarea
+                            name='comment'
+                            value={commentupd}
+                            onChange={inputChangeH}
+                            placeholder='Description'
+                            className='border text-lg p-2 rounded-lg w-full my-1'
+                        />
+                    </div>
+                    <p className='text-center font-bold text-red-500 p-2'>{messagesApi}</p>
+            <div className='flex gap-2 '>
+            <button onClick={editapi} className='text-lg font-bold p-3  rounded-lg text-white grow bg-red-500 hover:bg-red-800'>{updateLoading?"Updating..":"Update"}</button>
+            <button className='text-lg font-bold p-3 bg-blue-500 rounded-lg text-white grow hover:bg-blue-800' onClick={closeModel}>Cancel</button>
+            </div>
+            
+            </div>
+        </div>
+    </MyModel>
+   );
+
+// update section ends
+
+
+
 
   if (isLoading) {
-    return <div><div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} /></div></div>
+    return <div><div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} alt='loadign' /></div></div>
   }
 
   const sortedComments = data.sort((a, b) => {
@@ -132,15 +238,21 @@ sortedComments.map((item, i)=>{
       <div className='bg-gray-500 rounded-full h-[40px] w-[40px] flex-shrink-0'></div>
       <div className='ml-2 w-full '>
       <h3 className='font-bold flex items-center gap-1'>{item.name} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
-         <button className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>🗑️ <span className='text-[9px]'>Delete</span></button>
-        <button className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>✏️ <span className='text-[9px]'>Edit</span></button>
+         <button
+           onClick={()=>deleteCommentApi(item._id)}
+           className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>🗑️ <span className='text-[9px]'>Delete</span></button>
+        <button
+          onClick={()=>{updateCommentApi(item._id);setCommentupd(item.comment)}}
+         className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>✏️ <span className='text-[9px]'>Edit</span></button>
         </div>:<div></div>}</div></h3>
-      
+        {showModel && mainModel}
+        
+        
       <p className='text-sm '>{item.comment}</p>
       </div>
       </div>
       
-
+      {showModelD && mainDeleteModel}
 
     </div>
     
@@ -152,6 +264,7 @@ sortedComments.map((item, i)=>{
 }
 
 </div>
+
 </div>
   )
 }

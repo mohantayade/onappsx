@@ -70,7 +70,7 @@ if (isLoading) {
             <hr className='border-2 rounded-full' />
             {/* comment section */}
 
-            <Comment appId={appId}/>
+            <Comment appId={appId} />
 
     </div>
     </div>
