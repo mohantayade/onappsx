@@ -36,7 +36,7 @@ function User() {
   const [userApps,setUserApps]= useState([])
 
   const [deleteRes,setDeleteRes]=useState("")
-
+  const [refreash,setRefreash]=useState(false)
 
   const submitApp = async() =>{
     const token = localStorage.getItem('token')
@@ -109,7 +109,7 @@ function User() {
       setUserLoading(false)
       router.push('/login');
     }
-  }, []);
+  }, [refreash]);
 
   
   const logout = () => {
@@ -141,6 +141,44 @@ function User() {
        .catch((error)=>{console.log(error.response.data.message)})
     }
 
+// image upload api
+
+  const [imagePic, setImagePic] = useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImagePic(file); // Store the file in state
+    }
+  };
+
+  const uploadImage = async () => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    
+    if (imagePic) {
+      formData.append('profilePicture', imagePic); // Append the image file to FormData
+
+      try {
+        const response = await axios.post('/api/user/profile/upload', formData, {
+          params: {
+            token: token,
+          },
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        alert(response.data.message)
+        setRefreash(!refreash)
+      } catch (error) {
+        alert("Error uploading image:", error);
+      }
+    } else {
+      alert("No image selected.");
+    }
+  };
+
 
 
   return (
@@ -154,7 +192,8 @@ function User() {
       {
         userLoading? <div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} /></div>:<div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 '>
         <div className='flex flex-col justify-center items-center  '>
-          <div className=' bg-gray-400 w-20 h-20 rounded-full my-4'>
+          <div className='w-20 h-20 rounded-full overflow-hidden my-4'>
+            <Image src={`/api/${userData.profilePicture}`} width={200} height={200}></Image>
             </div>
             <p>{userData.name}</p>
             </div>
@@ -165,6 +204,21 @@ function User() {
           <h1 className='text-lg  text-center  '>{userData.email}</h1>
         </div>
       <button onClick={logout} className='bg-blue-500 text-white text-xl font-semibold  hover:bg-blue-800 rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]'>Logout</button>
+
+
+
+      <div>
+      <input type="file" name="avatar" onChange={handleImageChange} />
+      <button
+        onClick={uploadImage}
+        className='bg-blue-500 text-white text-xl font-semibold hover:bg-blue-800 rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]'
+      >
+        Upload
+      </button>
+    </div>
+
+
+      
       </div>
       }
           

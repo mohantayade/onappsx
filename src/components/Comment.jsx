@@ -85,7 +85,7 @@ const datas ={
       alert("Plese Enter comment ⤵️")
     }else{
     const response = await axios.post(`/api/apps/details${appId}/addcomm?token=${token}`,datas);
-    console.log(response);
+    
     alert(response.data.message)
     refetch()
     setTextarea('')
@@ -100,7 +100,7 @@ const datas ={
   }
   const runDeleteCommentApi =async ()=>{
   const response = await axios.delete(`/api/apps/details${appId}/${commentapiid}/rmcomm?token=${token}`);
-  console.log(response);
+
   // alert(response.data.message)
   refetch()
   setShowModelD(false)
@@ -235,7 +235,10 @@ sortedComments.map((item, i)=>{
       <div key={i}>
     <div className='flex my-4 justify-between items-center '>
       <div className='flex'>
-      <div className='bg-gray-500 rounded-full h-[40px] w-[40px] flex-shrink-0'></div>
+
+      <div className='rounded-full h-[40px] w-[40px] flex-shrink-0 overflow-hidden'><Image src={`/api/${item.profilePicture}`} width={40} height={40}></Image>
+      </div>
+
       <div className='ml-2 w-full '>
       <h3 className='font-bold flex items-center gap-1'>{item.name} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
          <button
