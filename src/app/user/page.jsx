@@ -152,6 +152,7 @@ function User() {
     }
   };
 
+  const [uploadLoading, setUploadLoading] = useState(false)
   const uploadImage = async () => {
     const token = localStorage.getItem('token');
     const formData = new FormData();
@@ -160,6 +161,7 @@ function User() {
       formData.append('profilePicture', imagePic); // Append the image file to FormData
 
       try {
+        setUploadLoading(true)
         const response = await axios.post('/api/user/profile/upload', formData, {
           params: {
             token: token,
@@ -168,10 +170,11 @@ function User() {
             'Content-Type': 'multipart/form-data',
           },
         });
-
+        setUploadLoading(false)
         alert(response.data.message)
         setRefreash(!refreash)
       } catch (error) {
+        setUploadLoading(false)
         alert("Error uploading image:", error);
       }
     } else {
@@ -193,7 +196,7 @@ function User() {
         userLoading? <div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} /></div>:<div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 '>
         <div className='flex flex-col justify-center items-center  '>
           <div className='w-20 h-20 rounded-full overflow-hidden my-4'>
-            <Image src={`/api/${userData.profilePicture}`} width={200} height={200}></Image>
+            <Image src={userData.profilePicture} width={200} height={200}></Image>
             </div>
             <p>{userData.name}</p>
             </div>
@@ -207,13 +210,15 @@ function User() {
 
 
 
-      <div>
+      <div className=' border-t-2 m-1 p-1 rounded-lg'>
+        <p>Change Your Profile Picture:</p>
       <input type="file" name="avatar" onChange={handleImageChange} />
       <button
         onClick={uploadImage}
-        className='bg-blue-500 text-white text-xl font-semibold hover:bg-blue-800 rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]'
+        disabled={uploadLoading}
+        className={uploadLoading?'bg-blue-800 text-white text-sm font-semibold   rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]':'bg-blue-500 text-white text-xl font-semibold hover:bg-blue-800 rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]'}
       >
-        Upload
+        {uploadLoading?"Uploading..":"Upload"}
       </button>
     </div>
 

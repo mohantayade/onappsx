@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["res.cloudinary.com"],
+},
     async rewrites() {
 
       const backendUri = process.env.BACKEND_URI;

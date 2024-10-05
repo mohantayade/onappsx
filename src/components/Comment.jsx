@@ -5,6 +5,7 @@ import {useQuery} from 'react-query';
 import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image';
 import MyModel from './MyModel'
+import Profileimage from './Profileimage';
 
 function Comment({appId}) {
 
@@ -198,15 +199,15 @@ const inputChangeH = (e) => {
     return <div><div className='flex flex-col justify-center items-center bg-white mx-auto max-w-[1000px] shadow-lg border rounded-lg my-10 h-[30vh]'><Image src={tubeLoading} width={100} height={100} alt='loadign' /></div></div>
   }
 
-  const sortedComments = data.sort((a, b) => {
-    if (a.userId === userData && b.userId !== userData) {
-      return -1;
-    } else if (a.userId !== userData && b.userId === userData) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
+  // const sortedComments = data.sort((a, b) => {
+  //   if (a.userId === userData && b.userId !== userData) {
+  //     return -1;
+  //   } else if (a.userId !== userData && b.userId === userData) {
+  //     return 1;
+  //   } else {
+  //     return 0;
+  //   }
+  // });
 
   return (
     <div>
@@ -226,7 +227,7 @@ const inputChangeH = (e) => {
 
 {
 
-sortedComments.map((item, i)=>{
+data.map((item, i)=>{
   
     const date = new Date(item.timestamp)
     const localdate = timeAgo(date)
@@ -236,11 +237,13 @@ sortedComments.map((item, i)=>{
     <div className='flex my-4 justify-between items-center '>
       <div className='flex'>
 
-      <div className='rounded-full h-[40px] w-[40px] flex-shrink-0 overflow-hidden'><Image src={`/api/${item.profilePicture}`} width={40} height={40}></Image>
+      <div className='rounded-full h-[40px] w-[40px] flex-shrink-0 overflow-hidden'>
+      <Image src={item.profilePicture} width={40} height={40}></Image>
+   
       </div>
 
       <div className='ml-2 w-full '>
-      <h3 className='font-bold flex items-center gap-1'>{item.name} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
+      <h3 className='font-bold flex items-center gap-1'>{item.userName} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
          <button
            onClick={()=>deleteCommentApi(item._id)}
            className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>🗑️ <span className='text-[9px]'>Delete</span></button>
