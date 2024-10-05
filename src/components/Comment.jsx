@@ -243,7 +243,8 @@ data.map((item, i)=>{
       </div>
 
       <div className='ml-2 w-full '>
-      <h3 className='font-bold flex items-center gap-1'>{item.userName} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>{userData==item.userId?<div className='flex gap-2'>
+      <h3 className='font-bold flex items-center gap-1'>{item.userName} <span className=' italic text-[12px] text-gray-600'> {localdate}</span> <div className='ml-2'>
+        {userData==item.userId?<div className='flex gap-2'>
          <button
            onClick={()=>deleteCommentApi(item._id)}
            className='flex flex-col justify-center items-center p-4 border h-10 w-10 rounded-lg'>🗑️ <span className='text-[9px]'>Delete</span></button>
