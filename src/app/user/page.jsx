@@ -210,7 +210,7 @@ function User() {
 
 
 
-      <div className=' border-t-2 flex flex-col justify-center text-center bg-slate-300 w-full'>
+      <div className=' border-t-2 flex flex-col justify-center text-center w-full'>
         <p className='my-2'>Change Your Profile Picture:</p>
         
        <input className=' w-60 mx-auto'  type="file" name="avatar" onChange={handleImageChange} />
