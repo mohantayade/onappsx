@@ -210,10 +210,11 @@ function User() {
 
 
 
-      <div className=' border-t-2 m-1 p-1 rounded-lg'>
-        <p>Change Your Profile Picture:</p>
-      <input type="file" name="avatar" onChange={handleImageChange} />
-      <button
+      <div className=' border-t-2 flex flex-col justify-center text-center bg-slate-300 w-full'>
+        <p className='my-2'>Change Your Profile Picture:</p>
+        
+       <input className=' w-60 mx-auto'  type="file" name="avatar" onChange={handleImageChange} />
+       <button
         onClick={uploadImage}
         disabled={uploadLoading}
         className={uploadLoading?'bg-blue-800 text-white text-sm font-semibold   rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]':'bg-blue-500 text-white text-xl font-semibold hover:bg-blue-800 rounded-lg mx-auto mb-4 h-12 mt-4 px-10 max-w-[200px]'}
