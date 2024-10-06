@@ -5,7 +5,7 @@ import {useQuery} from 'react-query';
 import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image';
 import MyModel from './MyModel'
-import Profileimage from './Profileimage';
+
 
 function Comment({appId}) {
 
@@ -209,11 +209,15 @@ const inputChangeH = (e) => {
   //   }
   // });
 
+
+
   return (
     <div>
         <div className='mx-5  my-2 flex border-blue-500 border-2 p-4 rounded-lg'>
             
-    <div className='w-14 h-12 mr-2 bg-pink-400 rounded-full'></div>
+    <div className='w-14 h-12 mr-2 rounded-full text-center flex justify-center text-3xl'>
+    💬
+    </div>
     <textarea value={textarea} onChange={(e)=>setTextarea(e.target.value)} className='border-none outline-none py-2 w-[100%] h-[120px]' placeholder='What do you think?'></textarea>
     
 </div>
