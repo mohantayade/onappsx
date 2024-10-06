@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["res.cloudinary.com"],
+    domains: ["x2lcrkk2g3m81lpd.public.blob.vercel-storage.com"],
+    
 },
     async rewrites() {
 
