@@ -37,8 +37,8 @@ function PopularApp() {
                     <div onClick={()=>openPage(data._id)} key={data.name} className='flex justify-between p-4 m-3 border rounded-lg items-center cursor-pointer'>
                         
                         <div className='flex items-center gap-5'>
-                        <div className='w-14 h-14 bg-gray-200 rounded-md'>
-                            
+                        <div className='w-14 h-14  rounded-md'>
+                            <Image src={data.logo} width={100} height={100}/>
                         </div>
                                 <div>
                                 <h2 className='text-lg font-semibold'>{data.name}</h2>
