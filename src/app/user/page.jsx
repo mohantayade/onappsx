@@ -274,8 +274,8 @@ function User() {
     userApps.map((data)=>{
       return <div key={data._id} className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full mb-2 '>          
       <div className='flex items-center gap-4'>
-      <div className='w-14 h-14 rounded-md'>
-        <Image src={data.logo} width={100} height={100} className='overflow-hidden w-14 h-14 rounded-full'></Image> 
+      <div className='w-14 h-14 rounded-md  flex items-center justify-center'>
+        <Image src={data.logo} width={100} height={100} className=''></Image> 
       </div>
               <div>
               <h2 className='text-lg font-semibold text-wrap'>{data.name}</h2>
