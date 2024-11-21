@@ -48,7 +48,8 @@ if (isLoading) {
 
         <div className=' max-w-[800px] mx-auto my-5'>
             <div className='mx-5  md:flex md: md:justify-center md:flex-nowrap grid grid-cols-2  items-center gap-2'>
-                <div className='w-16 h-16 rounded-lg flex-shrink-0 order-1 md:order-1'><Image src={apps[0]?.logo} width={100} height={100}/></div>
+                <div className='w-16 h-16 rounded-lg flex-shrink-0 order-1 md:order-1'>
+                  <Image src={apps[0]?.logo} className='overflow-hidden w-16 h-16' width={100} height={100}/></div>
                 <div className='md:grow order-3 md:order-2 flex md:flex-col flex-row md:items-start justify-between bg-white col-span-2 md:pt-2'>
                     <h1 className='text-xl font-bold pl-1'>{apps[0]?.name}</h1> 
                     <div className='flex gap-2 mr-1'>

@@ -38,7 +38,7 @@ function PopularApp() {
                         
                         <div className='flex items-center gap-5'>
                         <div className='w-14 h-14  rounded-md'>
-                            <Image src={data.logo} width={100} height={100}/>
+                            <Image className='overflow-hidden w-18 h-18' src={data.logo} width={100} height={100}/>
                         </div>
                                 <div>
                                 <h2 className='text-lg font-semibold'>{data.name}</h2>

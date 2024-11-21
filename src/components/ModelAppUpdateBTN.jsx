@@ -100,14 +100,8 @@ const[updateLoading,setUpdateLoading]= useState(false)
                             placeholder='Link'
                             className='border text-lg p-2 rounded-lg w-full my-1'
                         />
-{/* logo update section todo */}
-                        <label className='pl-1 text-sm'>Logo Update:</label>
-                        <input
-                            type="file"
-                            onChange={inputChangeH}
-                            placeholder='Logo'
-                            className='border text-lg p-2 rounded-lg w-full my-1'
-                        />
+
+                        
 
                         <label className='pl-1 text-sm'>Description :</label>
                         <textarea

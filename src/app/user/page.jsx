@@ -7,7 +7,7 @@ import tubeLoading from '@/assets/tube-spinner.svg'
 import Image from 'next/image'
 import ModelDeleteBTN from '@/components/ModelDeleteBTN'
 import ModelAppUpdate from '@/components/ModelAppUpdateBTN'
-
+import ModelLogoUpdate from '@/components/LogoupdateModel'
 
 function User() {
 
@@ -20,6 +20,7 @@ function User() {
   const [userData, setUserData] = useState("")
   const { setUser } = useContext(LoginContext)
   const [count,setCount]=useState(1)
+
   const handleReload=()=>{
     setCount(count+1)
    
@@ -184,6 +185,8 @@ function User() {
 
 
 
+
+
   return (
     <>
     
@@ -242,9 +245,9 @@ function User() {
           <input onChange={(e)=>setLink(e.target.value)}
           className='border text-lg p-2 rounded-lg w-full my-1' type="text" placeholder='Link' />
           {/* app logo upload when app is create feature */}
-          <label htmlFor="" className=''> Upload logo in 1:1 ratio :</label>
+          {/* <label htmlFor="" className=''> Upload logo in 1:1 ratio :</label>
           <input onChange={(e)=>setLink(e.target.value)}
-          className='border text-lg p-2 rounded-lg w-full my-1' type="file" placeholder='Logo' />
+          className='border text-lg p-2 rounded-lg w-full my-1' type="file" placeholder='Logo' /> */}
       </div>
       
           <textarea onChange={(e)=>setDiscription(e.target.value)}
@@ -272,7 +275,7 @@ function User() {
       return <div key={data._id} className='md:flex justify-between mx-auto p-2  border rounded-lg items-center w-full mb-2 '>          
       <div className='flex items-center gap-4'>
       <div className='w-14 h-14 rounded-md'>
-        <Image src={data.logo} width={100} height={100}></Image> 
+        <Image src={data.logo} width={100} height={100} className='overflow-hidden w-14 h-14 rounded-full'></Image> 
       </div>
               <div>
               <h2 className='text-lg font-semibold text-wrap'>{data.name}</h2>
@@ -283,8 +286,12 @@ function User() {
       
       <ModelDeleteBTN modelFunction={() => deleteApp(data._id)} />
       <ModelAppUpdate appUpdateId={data._id} />
+
       {/* logo upload working */}
-      <button className='bg-blue-400 p-2 rounded-lg text-white font-bold'>Upload Logo</button>
+      <ModelLogoUpdate data={data._id} modelFunction={data._id}/>
+      {/* <button className='bg-blue-400 p-2 rounded-lg text-white font-bold'>Upload Logo</button> */}
+
+      {/* *********** */}
       </div>
       
   </div>
