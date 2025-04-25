@@ -17,8 +17,6 @@ function contact() {
         </p>
         <ul className="mt-4 text-lg text-gray-600 list-disc list-inside">
           <li className='text-wrap'>Email: <a href="mailto:mohantayadeofficial@gmail.com" className="text-blue-600 text-sm sm:text-xl">mohantayadeofficial@gmail.com</a></li>
-          <li>Phone: <a href="tel:+1234567890" className="text-blue-600">+91 9623970898</a></li>
-          <li>Address: Near Ganpati Mandir,Arni Dist. Yavatmal</li>
         </ul>
       </div>
 
